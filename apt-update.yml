@@ -5,11 +5,15 @@
   become_method: sudo
 
   tasks:
+    # Update cache
+    - name: update apt list
+      apt:
+        update_cache: yes
+
     # Upgrade packages
     - name: upgrade apt packages
       apt:
         upgrade: yes
-        update_cache: yes
 
     # Check if reboot is required
     - name: check if system reboot is required
