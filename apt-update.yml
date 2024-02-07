@@ -3,7 +3,7 @@
   hosts: all
   become: yes
   become_method: sudo
-
+  become_user: root
   tasks:
     # Update cache
     - name: update apt list
