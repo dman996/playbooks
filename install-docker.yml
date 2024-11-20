@@ -5,6 +5,7 @@
   become_method: sudo
   become_user: root
   tasks:
+  tasks:
     - name: Update and upgrade the system
       apt:
         update_cache: yes
@@ -20,14 +21,9 @@
           - software-properties-common
         state: present
 
-    - name: Add Docker repository
-      apt_repository:
-        repo: deb [docker.com/repo]
-      state: present
-    
     - name: Add Docker's official GPG key
       ansible.builtin.command:
-        cmd: sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+        cmd: curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc; chmod a+r /etc/apt/keyrings/docker.asc
       args:
         creates: /usr/share/keyrings/docker-archive-keyring.gpg
 
@@ -44,7 +40,8 @@
     - name: Install Docker
       apt:
         name:
-          - docker
+          - docker-ce
+          - docker-ce-cli
           - containerd.io
         state: present
 
