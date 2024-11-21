@@ -22,5 +22,5 @@
     - name: Enable service qemu-guest-agent and ensure it is not masked
       ansible.builtin.systemd_service:
         name: qemu-guest-agent
-      enabled: true
-      state: started
+        enabled: true
+        state: started
