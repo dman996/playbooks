@@ -66,17 +66,6 @@
         groups: docker
         append: yes
 
-    - name: Install Docker Compose
-      ansible.builtin.command:
-        cmd: curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-      args:
-        creates: /usr/local/bin/docker-compose
-
-    - name: Apply executable permissions to Docker Compose binary
-      file:
-        path: /usr/local/bin/docker-compose
-        mode: '0755'
-
     - name: Verify Docker installation
       command: docker --version
       register: docker_version_output
@@ -86,7 +75,7 @@
         msg: "{{ docker_version_output.stdout }}"
 
     - name: Verify Docker Compose installation
-      command: docker-compose --version
+      command: docker compose --version
       register: docker_compose_version_output
 
     - name: Debug Docker Compose version
