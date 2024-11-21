@@ -1,0 +1,26 @@
+---
+- name: Apt Update servers
+  hosts: all
+  become: yes
+  become_method: sudo
+  become_user: root
+  tasks:
+  tasks:
+    - name: Update and upgrade the system
+      apt:
+        update_cache: yes
+        upgrade: dist
+        cache_valid_time: 3600
+
+    - name: Install required packages
+      apt:
+        name:
+          - qemu-guest-agent
+          - net-tools
+        state: present
+
+    - name: Enable service qemu-guest-agent and ensure it is not masked
+      ansible.builtin.systemd_service:
+        name: qemu-guest-agent
+      enabled: true
+      state: started
